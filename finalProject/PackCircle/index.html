@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+ <html>
+    <head>
+        <meta charset="UTF-8">
+		
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <!-- JQuery -->
+		<script src="js/jquery.min.js"></script>
+ 		<!-- Bootstrap -->
+		<script src="js/bootstrap.min.js"></script>
+		<!-- Combobox script for the search box -->
+		<script src="js/bootstrap-combobox.js"></script>
+		<!-- D3.js -->
+		<script src="js/d3.v3.min.js" charset="utf-8"></script>
+		<script src="js/d3.tip.v0.6.3.js" charset="utf-8"></script>
+		<script src="js/d3-legend.js" charset="utf-8"></script>
+		<!-- Stylesheet -->
+		<link href='css/font.css' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link href="css/bootstrap-combobox.css" rel="stylesheet">
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" type="text/css" href="css/scatter.css">
+    </head>
+    <body>	
+    		<h1>Fuel Economy in 2016</h1>
+    		<div class="col-sm-12 searchBox" >
+
+    			<div id="searchTitle" class="col-sm-2 title">  Search</div>
+    			<div class="col-sm-8 form-group">			
+    				<select id="searchBox" class="combobox input-large form-control" style="display: none;" onchange="searchEvent(this.value)">
+    				 <option value="" selected="selected">Search...</option>
+    				</select>
+    			</div>
+    		</div>
+			<div class="row text-center">
+				<div class="col-sm-7">					
+					<div class="col-sm-12" style="padding-top: 10px">
+						<div class="col-sm-3">
+							Combined MPG values
+						</div>
+						<div id="legend" class="col-sm-9"></div>
+					</div>
+					
+					<div id="chart" class="col-sm-12"></div>
+					<script type="text/javascript" src="js/data.js"></script>
+					<script src="js/script.js"></script>
+				</div>
+				<div class="col-sm-5">
+					<div id="scatter"></div>
+					<form class="form-group" id="filter">
+				      <label>y-axis: </label>
+				      <select name="department">
+				        <option value="Eng Displ">Engine Displacement</option>
+				        <option value="# Cyl">Number of Cylinders</option>
+				        <option value="# Gears">Number of Gears</option>
+				        <option value="Annual Fuel Cost">Annual Fuel Cost</option>
+				        <option value="GHG Rating">Greenhouse Gas Rating</option>
+				        <option value="Comb CO2">Comb CO2</option>
+				      </select>
+				      <button id="change">Change</button>
+				    </form>
+				    <script src="js/scatter.js" charset="utf-8"></script>
+					<div class="radarChart" id="radar"></div>
+					<script src="js/radarChart.js"></script>
+					<script src="js/radar.js"></script>
+				</div>
+			</div>
+
+		</div>
+	</body>
+
+</html>

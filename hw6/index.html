@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<!-- Document styling -->
+<link rel="stylesheet" href="styles.css">
+<body>
+  <script src="d3/d3.min.js"></script>
+  <script src="library.js"></script>
+  <script>
+    /* Setting document and chart properties */
+    var margin = {top: 20, right: 20, bottom: 30, left: 40},
+        width = 1700 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
+    /* Setting the range for X */
+    var x = d3.scale.ordinal()
+        .rangeRoundBands([0, width], .1);
+    /* Setting the range for Y */
+    var y = d3.scale.linear()
+        .range([height, 0]);
+    /* Creating the X Axis */
+    var xAxis = d3.svg.axis()
+      .scale(x)
+      .orient("bottom");
+
+    /* Creating the Y Axis */
+    var yAxis = d3.svg.axis()
+        .scale(y)
+        .orient("left")
+        .ticks(10);
+    /* Creating an SVG canvas */
+    var svg = d3.select("body").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    /* Load data from file with a specific type function */
+    d3.csv("Courses.csv", type, function(error, data) {
+      data = data.filter(function(row) {
+        return row['GPA'] > 0 && row['GPA'] != null;
+      })
+
+      if (error) throw error;
+      /* Setting the domain for X and Y */
+      x.domain(data.map(function(d) {return d.Department + d["Course Number"];}));
+      y.domain([0, d3.max(data, function(d) { return d.GPA; })]);
+      /* Drawing the X and Y axes */
+      drawXAxis();
+      drawYAxis();
+      /* Drawing the Bars */
+      drawBars(data);
+
+    });
+
+    function type(d) {
+      d.GPA = +d.GPA;
+      return d;
+    }
+  </script>
+
+
+<form id="filter">
+  GPA:<br><input type="number" name="gpa"><br>
+  Department: <select name="department">
+    <option value="CHEM">CHEM</option>
+    <option value="CS">CS</option>
+    <option value="ENGL">ENGL</option>
+    <option value="MATH">MATH</option>
+    <option value="MGT">MGT</option>
+    <option value="PHY">PHY</option>
+    <option value="PSYC">PSYC</option>
+  </select>
+</form>
+<button onclick="filter()">Filter</button>
+</body>
